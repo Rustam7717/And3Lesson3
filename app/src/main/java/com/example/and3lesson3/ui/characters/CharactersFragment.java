@@ -7,23 +7,26 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.and3lesson3.R;
 import com.example.and3lesson3.common.Resource;
 import com.example.and3lesson3.data.models.Character;
 import com.example.and3lesson3.data.models.RickAndMortyResponse;
 import com.example.and3lesson3.databinding.FragmentCharactersBinding;
 
-public class CharactersFragment extends Fragment {
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
+public class CharactersFragment extends Fragment implements OnItemClick {
 
     private FragmentCharactersBinding binding;
     private CharactersAdapter adapter;
     private CharactersViewModel viewModel;
+    private NavController controller;
 
     public CharactersFragment() {
 
@@ -40,8 +43,9 @@ public class CharactersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentCharactersBinding.inflate(inflater, container, false);
-        adapter = new CharactersAdapter();
+        adapter = new CharactersAdapter(this);
         viewModel = new ViewModelProvider(requireActivity()).get(CharactersViewModel.class);
+
         viewModel.getCharacters();
         return binding.getRoot();
     }
@@ -50,7 +54,7 @@ public class CharactersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.rvCharacter.setAdapter(adapter);
-
+        controller = Navigation.findNavController(requireView());
         viewModel.charactersLiveData.observe(getViewLifecycleOwner(), new Observer<Resource<RickAndMortyResponse<Character>>>() {
             @Override
             public void onChanged(Resource<RickAndMortyResponse<Character>> resource) {
@@ -74,5 +78,13 @@ public class CharactersFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onClick(Character character) {
+        controller.navigate(CharactersFragmentDirections
+                .actionCharactersFragmentToCharacterDetailFragment(character.getId()));
+
+
     }
 }

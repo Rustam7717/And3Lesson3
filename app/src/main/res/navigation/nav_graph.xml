@@ -9,5 +9,25 @@
         android:id="@+id/charactersFragment"
         android:name="com.example.and3lesson3.ui.characters.CharactersFragment"
         android:label="fragment_characters"
-        tools:layout="@layout/fragment_characters" />
+        tools:layout="@layout/fragment_characters">
+        <action
+            android:id="@+id/action_charactersFragment_to_characterDetailFragment"
+            app:destination="@id/characterDetailFragment" />
+        <argument
+            android:name="characterId"
+            app:argType="integer"
+            app:nullable="false"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="com.example.and3lesson3.ui.character_detail.CharacterDetailFragment"
+        android:label="fragment_character_detail"
+        tools:layout="@layout/fragment_character_detail" >
+        <argument
+            android:name="characterId"
+            app:argType="com.example.and3lesson3.data.models.Character" />
+
+    </fragment>
 </navigation>

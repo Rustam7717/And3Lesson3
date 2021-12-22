@@ -1,15 +1,16 @@
 
 package com.example.and3lesson3.data.models;
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Character {
+public class Character implements Serializable {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -44,7 +45,7 @@ public class Character {
     @Expose
     private String created;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 

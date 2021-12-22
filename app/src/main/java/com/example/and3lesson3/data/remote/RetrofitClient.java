@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://rickandmortyapi.com/api/")
+            .baseUrl("https://rickandmortyapi.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(provideClient())
             .build();

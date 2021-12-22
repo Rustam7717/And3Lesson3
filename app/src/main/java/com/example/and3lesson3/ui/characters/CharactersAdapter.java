@@ -1,6 +1,7 @@
 package com.example.and3lesson3.ui.characters;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,11 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Ch
 
 
     private List<Character> characters = new ArrayList<>();
+    private OnItemClick listener;
+
+    public CharactersAdapter(OnItemClick listener) {
+        this.listener = listener;
+    }
 
     public void setCharacters(List<Character> characters) {
         this.characters = characters;
@@ -36,6 +42,12 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Ch
     @Override
     public void onBindViewHolder(@NonNull CharacterViewHolder holder, int position) {
         holder.onBind(characters.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(characters.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
