@@ -3,8 +3,6 @@ package com.example.and3lesson3.common;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import retrofit2.http.PUT;
-
 public class Resource<T> {
 
     @NonNull

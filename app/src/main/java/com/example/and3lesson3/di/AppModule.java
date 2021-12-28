@@ -1,6 +1,7 @@
 package com.example.and3lesson3.di;
 
 import com.example.and3lesson3.data.remote.RickAndMortyApi;
+import com.example.and3lesson3.data.remote.pagging.CharactersStorage;
 import com.example.and3lesson3.data.repository.MainRepository;
 import java.util.concurrent.TimeUnit;
 import dagger.Module;
@@ -44,5 +45,11 @@ public abstract class AppModule {
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor
                         .Level.BODY))
                 .build();
+    }
+
+    @Provides
+    public static CharactersStorage provideCharactersStorage(RickAndMortyApi api) {
+        return new CharactersStorage(api);
+
     }
 }

@@ -5,6 +5,7 @@ import com.example.and3lesson3.data.models.RickAndMortyResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RickAndMortyApi {
 
@@ -14,5 +15,9 @@ public interface RickAndMortyApi {
     @GET("character/{id}")
     Call<Character> getCharacterById(
             @Path("id") int id
+    );
+    @GET ("character")
+    Call<RickAndMortyResponse<Character>> getCharactersByPage(
+            @Query("page") int page
     );
 }

@@ -1,5 +1,6 @@
 package com.example.and3lesson3.ui.character_detail;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,9 @@ import com.example.and3lesson3.common.Resource;
 import com.example.and3lesson3.data.models.Character;
 import com.example.and3lesson3.databinding.FragmentCharacterDetailBinding;
 import com.example.and3lesson3.ui.characters.CharactersViewModel;
+import com.google.zxing.BarcodeFormat;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -63,6 +68,7 @@ public class CharacterDetailFragment extends Fragment {
                         break;
                     }
                     case SUCCESS: {
+                        generateQr(args.getCharacterId());
                         Character character = resource.data;
                         binding.tvName.setVisibility(View.VISIBLE);
                         binding.tvStatus.setVisibility(View.VISIBLE);
@@ -85,5 +91,21 @@ public class CharacterDetailFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public void generateQr(int id) {
+        try {
+            BarcodeEncoder encoder = new BarcodeEncoder();
+            Bitmap qrBitmap = encoder.encodeBitmap(
+                    String.valueOf(id),
+                    BarcodeFormat.QR_CODE,
+                    200, 200
+            );
+            binding.ivQr.setImageBitmap(qrBitmap);
+        }catch (Exception e){
+            Log.e("TAG", "generateQr: " + e.getLocalizedMessage() );
+
+        }
+
     }
 }

@@ -1,15 +1,11 @@
 package com.example.and3lesson3.data.repository;
 
 import androidx.lifecycle.MutableLiveData;
-
-import com.example.and3lesson3.App;
 import com.example.and3lesson3.common.Resource;
 import com.example.and3lesson3.data.models.Character;
 import com.example.and3lesson3.data.models.RickAndMortyResponse;
 import com.example.and3lesson3.data.remote.RickAndMortyApi;
-
 import javax.inject.Inject;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
